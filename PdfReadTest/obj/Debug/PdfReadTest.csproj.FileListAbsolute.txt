@@ -1,0 +1,12 @@
+F:\github\C#\PdfRead\PdfReadTest\bin\Debug\PdfReadTest.exe.config
+F:\github\C#\PdfRead\PdfReadTest\bin\Debug\PdfReadTest.exe
+F:\github\C#\PdfRead\PdfReadTest\bin\Debug\PdfReadTest.pdb
+F:\github\C#\PdfRead\PdfReadTest\bin\Debug\itextsharp.dll
+F:\github\C#\PdfRead\PdfReadTest\bin\Debug\itextsharp.pdb
+F:\github\C#\PdfRead\PdfReadTest\bin\Debug\itextsharp.xml
+F:\github\C#\PdfRead\PdfReadTest\obj\Debug\PdfReadTest.csprojResolveAssemblyReference.cache
+F:\github\C#\PdfRead\PdfReadTest\obj\Debug\PdfReadTest.Form1.resources
+F:\github\C#\PdfRead\PdfReadTest\obj\Debug\PdfReadTest.Properties.Resources.resources
+F:\github\C#\PdfRead\PdfReadTest\obj\Debug\PdfReadTest.csproj.GenerateResource.Cache
+F:\github\C#\PdfRead\PdfReadTest\obj\Debug\PdfReadTest.exe
+F:\github\C#\PdfRead\PdfReadTest\obj\Debug\PdfReadTest.pdb

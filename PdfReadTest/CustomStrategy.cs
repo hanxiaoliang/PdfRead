@@ -1,4 +1,5 @@
 ﻿using iTextSharp.text.pdf.parser;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +37,7 @@ namespace PdfReadTest
         private List<TextChunk> Chunks = new List<TextChunk>();
         public List<AirportPoint> Points = new List<AirportPoint>();
 
-        public List<List<AirportRoute>> RouteList = new List<List<AirportRoute>>();
+        public List<AirportRoute> Routes = new List<AirportRoute>();
 
         public override void RenderText(TextRenderInfo renderInfo)
         {
@@ -559,7 +560,57 @@ namespace PdfReadTest
 
         public string InitRoute()
         {
-            return "";
+            TextChunk lastChunk = null;
+            int row = 1;
+            int col = 1;
+            StringBuilder msg = new StringBuilder();
+            StringBuilder preColText = new StringBuilder();
+            Dictionary<int, string> dicColName = new Dictionary<int, string>();
+            AirportRoute route = new AirportRoute();
+            int isContiRow = 0;
+
+            try
+            {
+                foreach (var chunk in Chunks)
+                {
+                    if (null == lastChunk)
+                    {
+                        lastChunk = chunk;
+                        col = 1;
+                    }
+
+                    //判断是否换行
+                    if (!chunk.SameLine(lastChunk))
+                    {
+                        row++;
+                        col = 1;
+
+                        //换行时，如果有上次读取的字符串为匹配，则改行数据匹配错误
+                        if (!string.IsNullOrEmpty(preColText.ToString()))
+                            msg.AppendLine(string.Format("第{0}行，解析出错，内容：{1}", row, preColText.ToString()));
+                    }
+
+                    if (row == isContiRow)
+                        continue;
+
+                    string val = chunk.Text;
+
+                    //判断是否为需要跳过的行
+                    if (IsContiRow(val))
+                    {
+                        isContiRow = row;
+                        continue;
+                    }
+
+                    lastChunk = chunk;
+                }
+            }
+            catch (Exception ex)
+            {
+                msg.AppendLine(string.Format("解析航路失败：{0}", ex.Message));
+            }
+
+            return msg.ToString();
         }
     }
 
@@ -604,28 +655,20 @@ namespace PdfReadTest
 
     public class AirportRoute
     {
-        public string RwyNo { get; set; }
+        public AirportRoute()
+        {
+            Route = new WayRoute();
+            Points = new List<WayRoutePoint>();
+        }
 
-        public string RouteNo { get; set; }
+        /// <summary>
+        /// 航路
+        /// </summary>
+        public WayRoute Route { get; set; }
 
-        public string RouteType { get; set; }
-
-        public string PointNo { get; set; }
-
-        public bool IsFlyPoint { get; set; }
-
-        public string Mag { get; set; }
-
-        public string Turn { get; set; }
-
-        public string Height { get; set; }
-
-        public string SpeedLimit { get; set; }
-
-        public string VPA { get; set; }
-
-        public string Navgation { get; set; }
-
-        public int SortNo { get; set; }
+        /// <summary>
+        /// 航路点
+        /// </summary>
+        public List<WayRoutePoint> Points { get; set; }
     }
 }

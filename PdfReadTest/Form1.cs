@@ -42,7 +42,7 @@ namespace PdfReadTest
                     List<AirportPoint> Points = new List<AirportPoint>();
                     Dictionary<int, string> dicColName = null;
 
-                    for (int page = 1; page <= pdfReader.NumberOfPages; page++)
+                    for (int page = 6; page <= pdfReader.NumberOfPages; page++)
                     {
                         //ITextExtractionStrategy strategy = new SimpleTextExtractionStrategy();
                         //ITextExtractionStrategy strategy = new LocationTextExtractionStrategy();
@@ -55,7 +55,8 @@ namespace PdfReadTest
                         if (null != dicColName)
                             strategy.dicBlockColName = dicColName;
 
-                        string msg = strategy.InitPoint();
+                        //string msg = strategy.InitPoint();
+                        string msg = strategy.InitRoute();
                         if (strategy.dicBlockColName != null)
                             dicColName = strategy.dicBlockColName;
 
